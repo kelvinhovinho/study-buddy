@@ -2,4 +2,11 @@
 
 {% block content %}
 <h1>Home template</h1>
+<div>
+    {% for room in rooms %}
+    <div style="margin-top: 10px; margin-bottom: 10px;">
+        <a href="{% url 'base:room' %}">{{room.id}}==>{{room.name}}</a>
+    </div>
+    {% endfor %}
+</div>
 {% endblock content %}
