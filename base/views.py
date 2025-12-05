@@ -12,11 +12,13 @@ def home(request):
         Q(name__icontains=q) |
         Q(description__icontains=q)
         )
+    room_cout = rooms.count()
     topics = Topic.objects.all
 
     context = {
         "rooms":rooms,
-        "topics":topics
+        "topics":topics,
+        "room_cout":room_cout
         }
     return render(request, 'base/home.html',context)
 

@@ -20,6 +20,7 @@
     {% endfor %}
   </div>
   <div>
+    <h5>{{room_cout}} rooms are available</h5>
     <a href="{% url 'base:create-room' %}">Create Room</a>
     {% for room in rooms %}
     <div>
