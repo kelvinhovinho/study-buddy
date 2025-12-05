@@ -10,6 +10,14 @@
       <h1>Logo</h1>
     </a>
 
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
     <form method="GET" action="{% url 'base:home' %}">
       <input type="text" name="q" placeholder="Search Rooms...">
     </form>
