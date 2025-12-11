@@ -19,7 +19,7 @@ def loginPage(request):
         return redirect('base:home')
 
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('username').lower()
         password = request.POST.get("password")
 
         try:
@@ -49,6 +49,17 @@ def lougoutUser(request):
 
 def registerPage(request):
     form = UserCreationForm()
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect('base:home')
+        else:
+            messages.error(request, "An error occured during registration.")
     return render(request, 'base/login_register.html', {"form":form})
 
 
@@ -82,7 +93,9 @@ def createRoom(request):
     if request.method == 'POST':
         form = RoomForm(request.POST)
         if form.is_valid():
-            form.save()
+            room =form.save(commit=False)
+            room.host = request.user
+            room.save()
             return redirect('base:home')
 
 
