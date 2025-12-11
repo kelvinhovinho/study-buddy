@@ -7,11 +7,14 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
 
 
 # Create your views here.
 
 def loginPage(request):
+
+    page = 'login'
     if request.user.is_authenticated:
         return redirect('base:home')
 
@@ -34,12 +37,20 @@ def loginPage(request):
 
 
 
-    context ={}
+    context ={
+        "page":page
+        }
     return render(request, 'base/login_register.html', context)
 
 def lougoutUser(request):
     logout(request)
     return redirect('base:home')
+
+
+def registerPage(request):
+    form = UserCreationForm()
+    return render(request, 'base/login_register.html', {"form":form})
+
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ""
